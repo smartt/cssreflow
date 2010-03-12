@@ -1,0 +1,17 @@
+#char-counter {color: #999; font-size: 200%;}
+#header {color: #666; padding-bottom: 30px; padding-top: 10px;}
+#logo {font-family: monospace; font-size: 350%;}
+#slogan {color: #990; font-size: 130%; font-style: italic; padding-left: 10px;}
+.acenter {text-align: center;}
+.aright {text-align: right;}
+.datetime {color: #666; font-size: 80%;}
+.fakelink {color: #06C; cursor: pointer;}
+.feed_link {color: #EF8736; font-size: 160%;}
+.profile_img {margin: 0.5em 0;}
+.retweet {padding-bottom: 8px;}
+.smaller {font-size: 80%;}
+a {color: #093; text-decoration: none;}
+a.ext {color: #06C;}
+div.link_row {padding-bottom: 6px;}
+div.refresh_link {font-size: 100%; padding-bottom: 20px;}
+div.screen_name {font-size: 120%;}

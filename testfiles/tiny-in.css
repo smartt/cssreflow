@@ -1,0 +1,63 @@
+a {
+    text-decoration: none;
+    color: #093;
+}
+a.ext {
+    color: #06C;
+}
+.acenter {
+    text-align: center;
+}
+.aright {
+    text-align: right;
+}
+.datetime {
+    color: #666;
+    font-size: 80%;
+}
+.fakelink {
+    color: #06C;
+    cursor: pointer;
+}
+.feed_link {
+    font-size: 160%;
+    color: #EF8736;
+}
+#char-counter {
+    color: #999;
+    font-size: 200%;
+}
+#header {
+    padding-bottom: 30px;
+    padding-top: 10px;
+    color: #666;
+}
+div.link_row {
+    padding-bottom: 6px;
+}
+#logo {
+    font-size: 350%;
+    font-family: monospace;
+}
+.profile_img {
+    margin:0.5em 0;
+}
+div.refresh_link {
+    font-size: 100%;
+    padding-bottom: 20px;
+}
+.retweet {
+    padding-bottom: 8px;
+}
+div.screen_name {
+    font-size: 120%;
+}
+#slogan {
+    font-style: italic;
+    font-size: 130%;
+    color: #990;
+    padding-left: 10px;
+}
+.smaller {
+    font-size: 80%;
+}
