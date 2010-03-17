@@ -12,8 +12,8 @@ __usage__ = """Normal usage:
   cssreflow.py [INPUT_FILE_NAME] > [OUTPUT_FILE]
 
   Options:
-    --alphaprops      Alphabetizes the CSS selectors (potentially altering inheritence rules.) [Default: off]
-    --alphaselectors  Alphabetizes the CSS properties. [Default: off]
+    --alphaprops      Alphabetizes the CSS properties. [Default: off]
+    --alphaselector   Alphabetizes the CSS selectors (potentially altering inheritence rules.) [Default: off]
     --clean           Shortcut for 2-space indent with alpha-props.
     --erik            Shortcut for flat with alpha-props and selectors.
     --flat            Puts declarations/rules on a single line.
