@@ -7,7 +7,7 @@ import sys
 __author__ = "Erik Smartt"
 __copyright__ = "Copyright 2010, Erik Smartt"
 __license__ = "MIT"
-__version__ = "0.1"
+__version__ = "0.2"
 __usage__ = """Normal usage:
   cssreflow.py [INPUT_FILE_NAME] > [OUTPUT_FILE]
 
@@ -15,7 +15,7 @@ __usage__ = """Normal usage:
     --alphaprops      Alphabetizes the CSS properties. [Default: off]
     --alphaselector   Alphabetizes the CSS selectors (potentially altering inheritence rules.) [Default: off]
     --clean           Shortcut for 2-space indent with alpha-props.
-    --erik            Shortcut for flat with alpha-props and selectors.
+    --erik            Shortcut for flat with alphaprops, -alphaselectors, and line breaks between selector types.
     --flat            Puts declarations/rules on a single line.
     --help            Prints this Help message.
     --indent          Indent properties. [Default: on]
@@ -30,6 +30,8 @@ __usage__ = """Normal usage:
 def get_config(options={}):
   # Setup default config (alter with command-line flags)
   config = {}
+
+  config['before_type_change'] = ''
 
   config['before_selector'] = ''
   config['after_selector'] = ' '
@@ -120,8 +122,21 @@ def structure_to_string(data, config):
   @param    keys    is a sorted list of style statements
   """
   output = []
+  previous_type = '' # class, tag, or ID
+  current_type = ''
 
   for statement in data['__keys__']:
+    try:
+      current_type = statement[0]
+    except:
+      current_type = ''
+
+    if config['before_type_change']:
+      if ((current_type != previous_type) and ((previous_type == '.') or (previous_type == '#'))):
+        output.append(config['before_type_change'])
+
+    previous_type = current_type
+
     output.append(config['before_selector'])
     output.append(statement)
     output.append(config['after_selector'])
@@ -206,6 +221,7 @@ def run(mode_list):
     config['alphabetize_properties'] = True
     config['indent'] = False
     config['before_close_brace'] = ''
+    config['before_type_change'] = '\n'
 
   if "--flat" in flatopts:
     config['indent'] = False

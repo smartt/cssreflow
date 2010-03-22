@@ -15,7 +15,7 @@ Usage
       --alphaprops      Alphabetizes the CSS properties. [Default: off]
       --alphaselectors  Alphabetizes the CSS selectors (potentially altering inheritence rules.) [Default: off]
       --clean           Shortcut for 2-space indent with alpha-props.
-      --erik            Shortcut for flat with alpha-props and selectors.
+      --erik            Shortcut for flat with alphaprops, -alphaselectors, and line breaks between selector types.
       --flat            Puts declarations/rules on a single line.
       --help            Prints this Help message.
       --indent          Indent properties. [Default: on]
