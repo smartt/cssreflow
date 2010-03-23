@@ -2,6 +2,9 @@ a {
   color: #093;
   text-decoration: none;
 }
+a:hover {
+  color: #009;
+}
 a.ext {
   color: #06C;
 }
