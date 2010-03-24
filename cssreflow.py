@@ -24,6 +24,7 @@ __usage__ = """Normal usage:
     --silent          Does not output the formatted text.
     --spaces          Use spaces to indent. [Default: on]
     --tabs            Use tabs to indent. [Default: off]
+    --verbose         Output lots of information about the parsing process.
     --version         Print the version number of cssreflow being used.
 """
 
@@ -64,6 +65,8 @@ def get_config(options={}):
   config['make_properties_lower_case'] = True
   config['make_values_lower_case'] = True
 
+  config['verbose'] = False
+
   # Add/change settings based on values in 'options'
   for k in options:
     config[k] = options[k]
@@ -79,7 +82,7 @@ def parse_file(file_name, config):
   #print "Parsing: %s" % (file_name)
 
   re_statement = re.compile("^\s*([\#\.\ a-zA-Z0-9\-\_\@\:]+)\s*{(.*?)}", re.M|re.S)
-  re_property = re.compile("([-\w]+)\s*:\s*([\#\%\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
+  re_property = re.compile("([-\w]+)\s*:\s*([\\\/\:\'\"\(\)\#\%\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
 
   # Might be able to clean this up using Python 3.1's sorted dictionary someday...
   data = {'__keys__':[], '__errors__':[], '__warnings__':[]}
@@ -89,6 +92,8 @@ def parse_file(file_name, config):
       selector = mo.group(1).strip()
       property_string = mo.group(2)
       property_set = []
+      
+      if config['verbose']: print "parse_file('%s'): Found selector: %s" % (file_name, selector)
 
       if data.has_key(selector):
         data['__warnings__'].append("Found duplicate selector '%s'" % (selector))
@@ -100,6 +105,8 @@ def parse_file(file_name, config):
         if po:
           attr = po.group(1).strip()
           val = po.group(2).strip()
+
+          if config['verbose']: print "parse_file('%s'): Found attribute: %s -> %s" % (file_name, attr, val)
 
           if data[selector].has_key(attr):
             data['__errors__'].append("Found duplicate attribute '%s' on selector '%s'" % (attr, selector))
@@ -176,7 +183,7 @@ def structure_to_string(data, config):
 
 def run(mode_list):
   try:
-    opts, args = getopt.getopt(mode_list[2:], "", ["alphaprops", "alphaselectors", "clean", "erik", "flat", "help", "indent", "indentsize=", "errors", "scan", "silent", "spaces", "tabs", "warn", "version"])
+    opts, args = getopt.getopt(mode_list[2:], "", ["alphaprops", "alphaselectors", "clean", "erik", "flat", "help", "indent", "indentsize=", "errors", "scan", "silent", "spaces", "tabs", "warn", "verbose", "version"])
     flatopts = map(lambda t: t[0], opts)
 
   except getopt.GetoptError, err:
@@ -245,6 +252,10 @@ def run(mode_list):
     flatopts.append('--silent')
     flatopts.append('--warn')
     flatopts.append('--errors')
+
+  if "--verbose" in flatopts:
+    config['verbose'] = True
+
 
   data = parse_file(infile, config)
 

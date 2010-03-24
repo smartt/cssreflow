@@ -34,6 +34,7 @@ a.ext {
     padding-bottom: 30px;
     padding-top: 10px;
     color: #666;
+    background: url('../images/woot.png') no-repeat bottom right;
 }
 div.link_row {
     padding-bottom: 6px;

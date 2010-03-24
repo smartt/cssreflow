@@ -7,7 +7,7 @@ a.ext {color: #06C;}
 .fakelink {color: #06C; cursor: pointer;}
 .feed_link {font-size: 160%; color: #EF8736;}
 #char-counter {color: #999; font-size: 200%;}
-#header {padding-bottom: 30px; padding-top: 10px; color: #666;}
+#header {padding-bottom: 30px; padding-top: 10px; color: #666; background: url('../images/woot.png') no-repeat bottom right;}
 div.link_row {padding-bottom: 6px;}
 #logo {font-size: 350%; font-family: monospace;}
 .profile_img {margin: 0.5em 0;}

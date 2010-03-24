@@ -31,6 +31,7 @@ a.ext {
   font-size: 200%;
 }
 #header {
+  background: url('../images/woot.png') no-repeat bottom right;
   color: #666;
   padding-bottom: 30px;
   padding-top: 10px;
