@@ -43,6 +43,7 @@ div.link_row {
     font-size: 350%;
     font-family: monospace;
 }
+.pov_block_home {background: url('../images/fb_bird-bg.png') no-repeat bottom right;}
 .profile_img {
     margin:0.5em 0;
 }

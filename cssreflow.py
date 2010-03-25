@@ -7,7 +7,7 @@ import sys
 __author__ = "Erik Smartt"
 __copyright__ = "Copyright 2010, Erik Smartt"
 __license__ = "MIT"
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 __usage__ = """Normal usage:
   cssreflow.py [INPUT_FILE_NAME] > [OUTPUT_FILE]
 
@@ -82,7 +82,7 @@ def parse_file(file_name, config):
   #print "Parsing: %s" % (file_name)
 
   re_statement = re.compile("^\s*([\#\.\ a-zA-Z0-9\-\_\@\:]+)\s*{(.*?)}", re.M|re.S)
-  re_property = re.compile("([-\w]+)\s*:\s*([\\\/\:\'\"\(\)\#\%\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
+  re_property = re.compile("([-\w]+)\s*:\s*([\\\/\:\'\"\(\)\#\%\_\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
 
   # Might be able to clean this up using Python 3.1's sorted dictionary someday...
   data = {'__keys__':[], '__errors__':[], '__warnings__':[]}
@@ -92,7 +92,7 @@ def parse_file(file_name, config):
       selector = mo.group(1).strip()
       property_string = mo.group(2)
       property_set = []
-      
+
       if config['verbose']: print "parse_file('%s'): Found selector: %s" % (file_name, selector)
 
       if data.has_key(selector):

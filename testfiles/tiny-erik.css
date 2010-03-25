@@ -8,6 +8,7 @@
 .datetime {color: #666; font-size: 80%;}
 .fakelink {color: #06C; cursor: pointer;}
 .feed_link {color: #EF8736; font-size: 160%;}
+.pov_block_home {background: url('../images/fb_bird-bg.png') no-repeat bottom right;}
 .profile_img {margin: 0.5em 0;}
 .retweet {padding-bottom: 8px;}
 .smaller {font-size: 80%;}

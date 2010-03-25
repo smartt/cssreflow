@@ -24,5 +24,6 @@ Usage
       --silent          Does not output the formatted text.
       --spaces          Use spaces to indent. [Default: on]
       --tabs            Use tabs to indent. [Default: off]
+      --verbose         Output lots of information about the parsing process.
       --version         Print the version number of cssreflow being used.
 
