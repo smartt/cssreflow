@@ -82,7 +82,10 @@ def parse_file(file_name, config):
   #print "Parsing: %s" % (file_name)
 
   re_statement = re.compile("^\s*([\#\.\ a-zA-Z0-9\-\_\@\:]+)\s*{(.*?)}", re.M|re.S)
-  re_property = re.compile("([-\w]+)\s*:\s*([\\\/\:\'\"\(\)\#\%\_\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
+
+  #re_property = re.compile("([-\w]+)\s*:\s*([\\\/\:\'\"\(\)\#\%\_\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
+  # Rather than explicitly allowing chars (as above), we'll take anything that isn't a semi-colon
+  re_property = re.compile("([-\w]+)\s*:\s*([^\;]+)\s*;", re.M|re.S)
 
   # Might be able to clean this up using Python 3.1's sorted dictionary someday...
   data = {'__keys__':[], '__errors__':[], '__warnings__':[]}
