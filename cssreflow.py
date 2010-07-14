@@ -205,6 +205,9 @@ def run(mode_list):
     print __usage__
     sys.exit(2)
 
+  if (len(mode_list) < 2):
+    print __usage__
+    sys.exit(2)
 
   # First handle commands that exit
   if "--help" == mode_list[1]:
