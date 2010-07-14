@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import getopt
+import os
 import re
 import sys
 
@@ -9,7 +10,7 @@ __copyright__ = "Copyright 2010, Erik Smartt"
 __license__ = "MIT"
 __version__ = "0.2.2"
 __usage__ = """Normal usage:
-  cssreflow.py [INPUT_FILE_NAME] > [OUTPUT_FILE]
+  cssreflow.py [INPUT_FILE_NAME] [OPTION_FLAGS] > [OUTPUT_FILE]
 
   Options:
     --alphaprops      Alphabetizes the CSS properties. [Default: off]
@@ -75,6 +76,17 @@ def get_config(options={}):
 
 
 def parse_file(file_name, config):
+  # Might be able to clean this up using Python 3.1's sorted dictionary someday...
+  data = {'__keys__':[], '__errors__':[], '__warnings__':[]}
+
+  if (not (os.path.exists(file_name))):
+    print "\n--------------------------\nERROR: File not found.\n--------------------------\n"
+    return data
+
+  if (not (os.path.isfile(file_name))):
+    print "\n--------------------------\nERROR: Not a valid file.\n--------------------------\n"
+    return data
+
   fp = open(file_name, 'r')
   text = fp.read()
   fp.close()
@@ -92,14 +104,11 @@ def parse_file(file_name, config):
   #re_property = re.compile("([-\w]+)\s*:\s*([\\\/\:\'\"\(\)\#\%\_\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
   # Rather than explicitly allowing chars (as above), we'll take anything that isn't a semi-colon
   re_property = re.compile("""
-    ([-\w]+)   # At least one character
-    \s*:\s*    # A colon surounded by any amount of whitespace
-    ([^\;]+)   # Anything but a semicolon
-    \s*;       # Any amount of whitespace, followed by a semi-colon
+    ([-\w]+)           # At least one character
+    \s*:\s*            # A colon surounded by any amount of whitespace
+    ([^\;]+)           # Anything but a semicolon
+    \s*;               # Any amount of whitespace, followed by a semi-colon
   """, re.M|re.S|re.VERBOSE)
-
-  # Might be able to clean this up using Python 3.1's sorted dictionary someday...
-  data = {'__keys__':[], '__errors__':[], '__warnings__':[]}
 
   for mo in re_statement.finditer(text):
     if mo:
@@ -226,7 +235,7 @@ def run(mode_list):
     sys.exit(2)
 
   config = get_config()
-
+  
   if "--alphaprops" in flatopts:
     config['alphabetize_properties'] = True
 
