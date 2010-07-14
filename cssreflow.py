@@ -81,11 +81,22 @@ def parse_file(file_name, config):
 
   #print "Parsing: %s" % (file_name)
 
-  re_statement = re.compile("^\s*([\#\.\ a-zA-Z0-9\-\_\@\:]+)\s*{(.*?)}", re.M|re.S)
+  re_statement = re.compile("""
+    ^                               # From the beginning of a line
+    \s*                             # Take any amount of whitespace
+    ([\#\.\ a-zA-Z0-9\-\_\@\:]+)    # Match a variety of legal CSS class, id, tag, etc. characters
+    \s*                             # Any whitespace
+    {(.*?)}                         # Anything wrapped in {} braces
+  """, re.M|re.S|re.VERBOSE)
 
   #re_property = re.compile("([-\w]+)\s*:\s*([\\\/\:\'\"\(\)\#\%\_\-\.\ a-zA-Z0-9]+)\s*;", re.M|re.S)
   # Rather than explicitly allowing chars (as above), we'll take anything that isn't a semi-colon
-  re_property = re.compile("([-\w]+)\s*:\s*([^\;]+)\s*;", re.M|re.S)
+  re_property = re.compile("""
+    ([-\w]+)   # At least one character
+    \s*:\s*    # A colon surounded by any amount of whitespace
+    ([^\;]+)   # Anything but a semicolon
+    \s*;       # Any amount of whitespace, followed by a semi-colon
+  """, re.M|re.S|re.VERBOSE)
 
   # Might be able to clean this up using Python 3.1's sorted dictionary someday...
   data = {'__keys__':[], '__errors__':[], '__warnings__':[]}
