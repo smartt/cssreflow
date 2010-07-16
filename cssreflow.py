@@ -100,7 +100,7 @@ def parse_file(file_name, config):
   re_statement = re.compile("""
     ^                               # From the beginning of a line
     \s*                             # Take any amount of whitespace
-    ([\#\.\ a-zA-Z0-9\-\_\@\:]+)    # Match a variety of legal CSS class, id, tag, etc. characters
+    ([\#\.\ a-zA-Z0-9\-\,\_\@\:]+)    # Match a variety of legal CSS class, id, tag, etc. characters
     \s*                             # Any whitespace
     {(.*?)}                         # Anything wrapped in {} braces
   """, re.M|re.S|re.VERBOSE)        # Multiline, dot-all, verbose

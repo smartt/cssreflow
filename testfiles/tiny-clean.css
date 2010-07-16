@@ -49,7 +49,7 @@ div.link_row {
 .profile_img {
   margin: 0.5em 0;
 }
-div.refresh_link {
+div.foo, div.refresh_link {
   font-size: 100%;
   padding-bottom: 20px;
 }

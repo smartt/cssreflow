@@ -16,6 +16,6 @@
 a {color: #093; text-decoration: none;}
 a.ext {color: #06C;}
 a:hover {color: #009;}
+div.foo, div.refresh_link {font-size: 100%; padding-bottom: 20px;}
 div.link_row {padding-bottom: 6px;}
-div.refresh_link {font-size: 100%; padding-bottom: 20px;}
 div.screen_name {font-size: 120%;}
