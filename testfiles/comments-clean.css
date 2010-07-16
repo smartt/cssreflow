@@ -1,0 +1,8 @@
+#header {
+  background: url('../images/woot.png') no-repeat bottom right;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+div.link_row {
+  padding-bottom: 6px;
+}

@@ -1,0 +1,20 @@
+/* This should stay or go */
+#header {
+    padding-bottom: 30px;
+    padding-top: 10px;
+    /*color: #666;*/
+    background: url('../images/woot.png') no-repeat bottom right;
+}
+div.link_row {
+    padding-bottom: 6px;
+}
+/*
+#logo {
+    font-size: 350%;
+    font-family: monospace;
+}
+.pov_block_home {background: url('../images/fb_bird-bg.png') no-repeat bottom right;}
+.profile_img {
+    margin:0.5em 0;
+}
+*/
