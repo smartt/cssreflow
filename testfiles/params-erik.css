@@ -1,0 +1,11 @@
+#char-counter {color: #999; font-size: 200%;}
+#header {background: url('../images/woot.png') no-repeat bottom right; color: #666; padding-bottom: 30px; padding-top: 10px;}
+
+.pov_block_home {background: url('../images/fb_bird-bg.png') no-repeat bottom right;}
+.profile_img {margin: 0.5em 0;}
+
+a {color: #06c; text-decoration: none;}
+a.ext {color: #06c;}
+a:hover {color: #009;}
+div.foo, div.refresh_link {font-size: 100%; padding-bottom: 20px;}
+div.link_row {padding-bottom: 6px;}

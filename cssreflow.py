@@ -8,7 +8,7 @@ import sys
 __author__ = "Erik Smartt"
 __copyright__ = "Copyright 2010, Erik Smartt"
 __license__ = "MIT"
-__version__ = "0.2.4"
+__version__ = "0.3.0"
 __usage__ = """Normal usage:
   cssreflow.py INPUT-FILE [OPTIONS] > OUTPUT-FILE
 
@@ -63,6 +63,10 @@ def get_config(options={}):
   config['indent_size'] = 2
   config['indent_with'] = ' '
 
+  config['nuke_comments'] = True
+
+  config['parse_variables'] = True
+
   config['make_properties_lower_case'] = True
   config['make_values_lower_case'] = True
 
@@ -100,7 +104,7 @@ def parse_file(file_name, config):
   re_statement = re.compile("""
     ^                               # From the beginning of a line
     \s*                             # Take any amount of whitespace
-    ([\#\.\ a-zA-Z0-9\-\,\_\@\:]+)    # Match a variety of legal CSS class, id, tag, etc. characters
+    ([\#\.\ a-zA-Z0-9\-\,\_\@\:]+)  # Match a variety of legal CSS class, id, tag, etc. characters
     \s*                             # Any whitespace
     {(.*?)}                         # Anything wrapped in {} braces
   """, re.M|re.S|re.VERBOSE)        # Multiline, dot-all, verbose
@@ -114,10 +118,47 @@ def parse_file(file_name, config):
     \s*;                       # Any amount of whitespace, followed by a semi-colon
   """, re.M|re.S|re.VERBOSE)   # Multiline, dot-all, verbose
 
-  # Nuke comments
-  text = re_comments.sub('', text)
+  if (config['parse_variables']):
+    # Setup regex pattern for extracting variable definitions like,
+    #   @set link-color #06c
+    re_set_command = re.compile("""
+      ^                               # From the beginning of a line
+      \s*                             # Take any amount of whitespace
+      \@set                           # The "set" command
+      \s*                             # Any whitespace
+      ([a-zA-Z0-9\-\_]+)              # Match a variable name
+      \s*                             # Any whitespace
+      ([\#\.\ a-zA-Z0-9\-\,\_\@\:]+)  # Match legal CSS characters
+    """, re.M|re.S|re.VERBOSE)        # Multiline, dot-all, verbose
 
+    re_var_statement = re.compile("\@([a-zA-Z0-9\-\_]+)")
 
+    #
+    # Extract the user variables and stash them in a dictionary
+    user_variables = {}
+    for mo in re_set_command.finditer(text):
+      user_variables[mo.group(1).strip()] = mo.group(2).strip()
+      if config['verbose']: print "Found variable setting: %s = %s" % (mo.group(1).strip(), mo.group(2).strip())
+
+  #
+  # Nuke comments (which nukes the variable definitions too, which is a nice bonus)
+  if (config['nuke_comments']):
+    text = re_comments.sub('', text)
+
+  if (config['parse_variables']):
+    #
+    # Substitute variable requests with their values
+    def varsub(mo):
+      try:
+        return user_variables[mo.group(1)]
+      except KeyError:
+        # We couldn't resolve this as a variable key, so leave it be
+        return "@%s" % (mo.group(1))
+
+    text = re_var_statement.sub(varsub, text)
+
+  #
+  # Extract CSS statements...
   for mo in re_statement.finditer(text):
     if mo:
       selector = mo.group(1).strip()
@@ -263,6 +304,8 @@ def run(mode_list):
     config['indent'] = False
     config['before_close_brace'] = ''
     config['before_type_change'] = '\n'
+    config['nuke_comments'] = True
+    config['parse_variables'] = True
 
   if "--flat" in flatopts:
     config['indent'] = False

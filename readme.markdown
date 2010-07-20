@@ -27,3 +27,19 @@ Usage
       --verbose         Output lots of information about the parsing process.
       --version         Print the version number of cssreflow being used.
 
+
+Variable Substitution
+---------------
+
+CSSReflow 0.3 introduces basic variable substitution, allowing input CSS like this:
+
+    /*
+        @set my-background-color #06c
+    */
+    
+    body {background-color: @my-background-color;}
+
+The variable parser isn't very clever.  It looks for "@set KEY VALUE" patterns to setup a dictionary of user variables, then finds all "@KEY" strings and attempts to resolve the key by looking up it's value in the dictionary.  If the value isn't found, the @KEY statement will be left as-is.
+
+If you're going to use this feature, put your @set definitions in a CSS comment.  Since all comments are removed before parsing, this will also remove the @set commands from the final output.
+

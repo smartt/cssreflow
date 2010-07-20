@@ -1,0 +1,37 @@
+/*
+  @set link-color #06c
+  @set link-hover-color #009
+  @set header-color color: #666
+*/
+
+a {
+    text-decoration: none;
+    color: @link-color;
+}
+a:hover {
+    color: @link-hover-color;
+}
+a.ext {
+    color: @link-color;
+}
+#char-counter {
+    color: #999;
+    font-size: 200%;
+}
+#header {
+    padding-bottom: 30px;
+    padding-top: 10px;
+    @header-color;
+    background: url('../images/woot.png') no-repeat bottom right;
+}
+div.link_row {
+    padding-bottom: 6px;
+}
+.pov_block_home {background: url('../images/fb_bird-bg.png') no-repeat bottom right;}
+.profile_img {
+    margin:0.5em 0;
+}
+div.foo, div.refresh_link {
+    font-size: 100%;
+    padding-bottom: 20px;
+}
